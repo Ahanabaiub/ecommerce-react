@@ -13,7 +13,7 @@ const ProductDetails = (props)=>{
 
     useEffect(async ()=>{
 
-        const resp =await axios.get('http://localhost:8000/api/product/get/'+id);
+        const resp =await axios.get('api/product/get/'+id);
         //console.log(resp.data);
 
         setProduct(resp.data);

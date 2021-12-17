@@ -4,10 +4,13 @@ import { useState, useEffect } from 'react';
 import BarChart from './BarChart';
 import Sidebar from './Sidebar';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 const Homepg = ()=>{
     let {path,url} = useRouteMatch();
+
+    let history = useHistory();
 
     const [orderChartData,setOrderChartData] = useState([]);
     const [orderCatChartData,setOrderCatChartData] = useState([]);  
@@ -25,42 +28,51 @@ const Homepg = ()=>{
 
     useEffect(()=>{
 
-        axios.get('http://localhost:8000/api/product/countAll').then(resp=>{
+       
+        if(!localStorage.getItem('user')){
+        
+            history.push('/login');
+        
+        }
+
+       
+
+        axios.get('api/product/countAll').then(resp=>{
             setTotalProduct(resp.data);
         })
         .catch(err=>{
             console.log(err);
         });
 
-        axios.get('http://localhost:8000/api/manager/allCount').then(resp=>{
+        axios.get('api/manager/allCount').then(resp=>{
             setTotalManagers(resp.data);
         })
         .catch(err=>{
             console.log(err);
         });
 
-        axios.get('http://localhost:8000/api/customer/allCount').then(resp=>{
+        axios.get('api/customer/allCount').then(resp=>{
             setTotalCustomers(resp.data);
         })
         .catch(err=>{
             console.log(err);
         });
 
-        axios.get('http://localhost:8000/api/order/allCount').then(resp=>{
+        axios.get('api/order/allCount').then(resp=>{
             setTotalOrders(resp.data);
         })
         .catch(err=>{
             console.log(err);
         });
 
-        axios.get('http://localhost:8000/api/deliveryMan/allCount').then(resp=>{
+        axios.get('api/deliveryMan/allCount').then(resp=>{
             setTotalDMans(resp.data);
         })
         .catch(err=>{
             console.log(err);
         });
 
-        axios.get('http://localhost:8000/api/category/allCount').then(resp=>{
+        axios.get('api/category/allCount').then(resp=>{
             setTotalCategory(resp.data);
         })
         .catch(err=>{
@@ -68,19 +80,21 @@ const Homepg = ()=>{
         });
 
 
-        axios.get('http://localhost:8000/api/order/get-monthly-data').then(resp=>{
+        axios.get('api/order/get-monthly-data').then(resp=>{
             setOrderChartData(resp.data);
         })
         .catch(err=>{
             console.log(err);
         });
 
-        axios.get('http://localhost:8000/api/order/get-category-data').then(resp=>{
+        axios.get('api/order/get-category-data').then(resp=>{
             setOrderCatChartData(resp.data);
         })
         .catch(err=>{
             console.log(err);
         });
+
+       
 
     },[]);
 

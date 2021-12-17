@@ -31,7 +31,7 @@ const ProductsDash = ()=>{
     useEffect(async ()=>{
 
         
-        axios.get('http://localhost:8000/api/product/top-sold').then(resp=>{
+        axios.get('/api/product/top-sold').then(resp=>{
             setTopProducts(resp.data);
             
             
@@ -41,14 +41,14 @@ const ProductsDash = ()=>{
         });
 
 
-        axios.get('http://localhost:8000/api/product/all').then(resp=>{
+        axios.get('/api/product/all').then(resp=>{
             setProducts(resp.data);
         })
         .catch(err=>{
             console.log(err);
         });
 
-        let catapi = await axios.get('http://localhost:8000/api/category/all');
+        let catapi = await axios.get('/api/category/all');
         setCatagorys(catapi.data);
 
 
@@ -149,7 +149,7 @@ const ProductsDash = ()=>{
        
         //console.log(obj);
 
-        axios.post("http://localhost:8000/api/product/save",obj)
+        axios.post("/api/product/save",obj)
         .then(resp=>{
 
             axios.get('http://localhost:8000/api/product/all').then(resp=>{
@@ -176,10 +176,10 @@ const ProductsDash = ()=>{
     ///........delete........
     let deleteProduct=async (id)=>{
         if(window.confirm("Do you want to delete this?")){
-            let resp = await axios.delete('http://localhost:8000/api/product/delete/'+id);
+            let resp = await axios.delete('/api/product/delete/'+id);
        
 
-            let resp2 = await axios.get('http://localhost:8000/api/product/all');
+            let resp2 = await axios.get('/api/product/all');
             setProducts(resp2.data);
         }
       
@@ -193,7 +193,7 @@ const ProductsDash = ()=>{
 
         let query = e.target.value;
 
-        let result = await axios.get('http://localhost:8000/api/product/search?q='+query);
+        let result = await axios.get('/api/product/search?q='+query);
 
         setProducts(result.data);
 

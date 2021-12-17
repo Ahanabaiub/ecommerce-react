@@ -16,14 +16,14 @@ const Reports = ()=>{
 
     useEffect(()=>{
 
-        axios.get('http://localhost:8000/api/report/get-mn-selles').then(resp=>{
+        axios.get('/api/report/get-mn-selles').then(resp=>{
             setmnSelles(resp.data);
         })
         .catch(err=>{
             console.log(err);
         });
 
-        axios.get('http://localhost:8000/api/report/get-yy-selles').then(resp=>{
+        axios.get('/api/report/get-yy-selles').then(resp=>{
             setyySelles(resp.data);
         })
         .catch(err=>{
